@@ -1,6 +1,7 @@
 accelerate
 appdirs
 bitsandbytes
+sentencepiece
 black
 black[jupyter]
 datasets
@@ -8,3 +9,8 @@ fire
 git+https://github.com/huggingface/peft.git
 git+https://github.com/huggingface/transformers.git
 gradio
+torchvision
+torchdata
+torchaudio
+horovod
+wandb
