@@ -14,4 +14,5 @@ todo.txt
 .DS_Store
 .ipynb_checkpoints
 *.env
-.vscode/
+.venv
+.vscode

@@ -1,5 +1,6 @@
 accelerate
 appdirs
+loralib
 bitsandbytes
 sentencepiece
 black
@@ -8,6 +9,7 @@ datasets
 fire
 git+https://github.com/huggingface/peft.git
 git+https://github.com/huggingface/transformers.git
+sentencepiece
 gradio
 torchvision
 torchdata
