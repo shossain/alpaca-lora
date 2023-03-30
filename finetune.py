@@ -28,6 +28,7 @@ def train(
     base_model: str = "",  # the only required argument
     data_path: str = "yahma/alpaca-cleaned",
     output_dir: str = "./lora-alpaca",
+    checkpoints_dir: str = "/opt/ml/checkpoints",  # SageMaker requirement
     # training hyperparams
     batch_size: int = 128,
     micro_batch_size: int = 4,
@@ -58,6 +59,7 @@ def train(
         f"base_model: {base_model}\n"
         f"data_path: {data_path}\n"
         f"output_dir: {output_dir}\n"
+        f"checkpoints_dir: {checkpoints_dir}\n"
         f"batch_size: {batch_size}\n"
         f"micro_batch_size: {micro_batch_size}\n"
         f"num_epochs: {num_epochs}\n"
@@ -163,7 +165,7 @@ def train(
     )
     model = get_peft_model(model, config)
 
-    if data_path.endswith(".json"):  # todo: support jsonl
+    if data_path.endswith(".json") or data_path.endswith(".jsonl"):
         data = load_dataset("json", data_files=data_path)
     else:
         data = load_dataset(data_path)
@@ -226,8 +228,8 @@ def train(
             save_strategy="steps",
             eval_steps=200 if val_set_size > 0 else None,
             save_steps=200,
-            output_dir=output_dir,
-            save_total_limit=3,
+            output_dir=checkpoints_dir,
+            save_total_limit=2,
             load_best_model_at_end=True if val_set_size > 0 else False,
             ddp_find_unused_parameters=False if ddp else None,
             group_by_length=group_by_length,
