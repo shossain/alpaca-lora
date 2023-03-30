@@ -2,6 +2,8 @@ import argparse
 import os
 
 from finetune import train
+from transformers.trainer_utils import get_last_checkpoint
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
@@ -57,10 +59,14 @@ if __name__ == "__main__":
 
     args, _ = parser.parse_known_args()
 
+    last_checkpoint = get_last_checkpoint(args.checkpoints)
+    
     train(
-        base_model="decapoda-research/llama-7b-hf",
-        data_path="yahma/alpaca-cleaned",
-        output_dir=args.model_dir,
-        wandb_project=args.project_name,
-        wandb_run_name=args.group_name,
+        base_model             = args.model_name,
+        data_path              = "yahma/alpaca-cleaned",
+        output_dir             = args.model_dir,
+        checkpoints_dir        = args.checkpoints,
+        wandb_project          = args.project_name,
+        wandb_run_name         = args.group_name,
+        resume_from_checkpoint = last_checkpoint,
     )
