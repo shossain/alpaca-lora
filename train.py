@@ -11,7 +11,6 @@ if __name__ == "__main__":
     # Hyperparameters sent by the client are passed as command-line arguments to the script
     parser.add_argument("--epochs", type=int, default=3)
     parser.add_argument("--model_name", type=str)
-    parser.add_argument("--data_path", type=str)
     parser.add_argument("--learning_rate", type=str, default=5e-5)
     parser.add_argument("--warmup_step_ratio", type=str, default=0.2)
 
@@ -42,7 +41,7 @@ if __name__ == "__main__":
 
     train(
         base_model=args.model_name,
-        data_path=args.data_path,
+        data_path=args.training_dir,
         output_dir=args.model_dir,
         checkpoints_dir=args.checkpoints,
         num_epochs=int(args.epochs),

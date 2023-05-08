@@ -189,6 +189,8 @@ def train(
     else:
         data = load_dataset(data_path)
 
+    print(f"Total number of instructions: {data['train'].num_rows}\n")
+
     if resume_from_checkpoint:
         # Check the available weights and load them
         checkpoint_name = os.path.join(
